@@ -1,7 +1,7 @@
-import { router as questionsRouter } from "./features/questions";
-import { router as answersRouter } from "./features/answers";
+import { controller as questionsController } from "./features/questions";
 
-exports.assignRoutes = (app) => {
-    questionsRouter(app);
-    answersRouter(app);
+exports.configureControllers = (server) => {
+    questionsController(server, (next) => {
+        return next();
+    });
 }
