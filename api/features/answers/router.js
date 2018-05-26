@@ -1,5 +1,8 @@
 const getAnswers = (req, res, next) => {
-    res.send("answers");
+    res.send({
+        "status" : "success",
+        "data": "er"
+    });
 };
 
 const handle = (app) => {

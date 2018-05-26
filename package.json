@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-    "start": "npm run build && node ./dist/bin/www"
+    "start": "npm run build && node ./dist/bin/www",
+    "test": "npm run build && mocha --recursive"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -18,6 +19,9 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.2.0",
     "rimraf": "^2.6.2"
   }
 }
