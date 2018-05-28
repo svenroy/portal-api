@@ -1,27 +1,19 @@
-import restify from "restify";
-import app from "./api";
+import chalk from 'chalk';
+import morgan from 'morgan';
+import express from 'express';
+import app from './api';
 
-const server = restify.createServer({
-  name: 'portal',
-  version: '1.0.0'
-});
+const debug = require('debug')('app');
 
-server.use(restify.plugins.acceptParser(server.acceptable));
-server.use(restify.plugins.queryParser());
-server.use(restify.plugins.bodyParser());
+const port = process.env.PORT || 3000;
 
-server.pre((req, res, next) => {
-  console.info(`${req.method} - ${req.url}`);
-  return next();
-});
+const server = express();
 
+server.use(morgan('tiny'));
 app.configureControllers(server);
 
-server.get('/echo/:name', (req, res, next) => {
-  res.send(req.params);
-  return next();
+server.listen(port, () => {
+  debug(`listening at ${chalk.green(port)}`);
 });
 
-server.listen(3000, () => {
-  console.log('%s listening at %s', server.name, server.url);
-});
+module.exports = server;

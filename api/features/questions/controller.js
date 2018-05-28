@@ -1,19 +1,14 @@
-import questionsDomain from './domain';
+import * as questionsDomain from './domain';
 
-const getQuestions = (req, res) => {
-    const caseId = req.params.caseId;
-    
-    var questionSet = questionsDomain.getQuestions(caseId);
-    res.send(questionSet);
+const getQuestionsRoute = (req, res) => {
+  const { caseId } = req.params;
+
+  const questionSet = questionsDomain.getQuestions(caseId);
+  res.send(questionSet);
 };
 
-const controller = (server, nextHandler) => {
-    server.get("/api/questions/:caseId", middleware(getQuestions, nextHandler));
-}
-
-const middleware = (controllerAction, nextHandler) => (req, res, next) => {
-    controllerAction(req, res);
-    nextHandler(next);
-}
+const controller = (server) => {
+  server.get('/api/questions/:caseId', getQuestionsRoute);
+};
 
 export default controller;

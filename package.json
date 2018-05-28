@@ -4,26 +4,29 @@
   "private": true,
   "scripts": {
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-    "start": "npm run build && node ./dist/server",
-    "test": "npm run build && mocha --recursive"
+    "starts": "npm run build && DEBUG=app node ./dist/server",
+    "start": "DEBUG=app nodemon --exec npm run babel-node -- ./server",
+    "test": "npm run build && mocha --recursive",
+    "lint": "eslint server.js",
+    "babel-node": "babel-node --presets=env --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log"
   },
   "dependencies": {
+    "chalk": "^2.4.1",
     "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "express": "~4.16.0",
+    "debug": "^2.6.9",
+    "express": "^4.16.3",
     "http-errors": "~1.6.2",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.0",
-    "restify": "^7.2.0"
+    "morgan": "~1.9.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0",
     "mocha": "^5.2.0",
-    "restify-clients": "^2.0.2",
     "rimraf": "^2.6.2"
   }
 }

@@ -1,19 +1,24 @@
 process.env.NODE_ENV = 'test';
 
-var assert = require('assert');
-var clients = require('restify-clients');
-var expect = require("chai").expect;
+const chai = require('chai');
 
-var client = clients.createJsonClient({
-    url: 'http://localhost:3000',
-    version: '*'
-});
+const should = chai.should();
+const chaiHttp = require('chai-http');
 
-describe('GET /api/questions/:caseId', function () {
-    it('Should get a 200 response', function (done) {
-        client.get('/api/questions/sdv', function (err, req, res, obj) {
-            expect(res.status).to.be(200);
-        });
+chai.use(chaiHttp);
+
+const server = require('../../dist/server');
+
+describe('GET /api/questions/:caseId', () => {
+  it('Should get a 200 response', (done) => {
+    chai.request(server)
+      .get('/api/questions/caseId')
+      .end((err, res) => {
+        // there should be no errors
+        should.not.exist(err);
+        // there should be a 200 status code
+        res.status.should.equal(200);
         done();
-    });
+      });
+  });
 });
