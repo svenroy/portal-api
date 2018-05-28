@@ -1,3 +1,9 @@
 import { questionsRepository } from '../../data';
 
-export const getQuestions = caseId => questionsRepository.getQuestionsByCaseId(caseId);
+export const getQuestionsAsync = (cb) => {
+  if (cb) {
+    questionsRepository.getQuestionsAsync(cb);
+  }
+
+  return questionsRepository.getQuestionsAsync();
+};

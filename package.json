@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "starts": "npm run build && DEBUG=app node ./dist/server",
-    "start": "DEBUG=app nodemon --exec npm run babel-node -- ./server",
+    "start": "DEBUG=app* nodemon --exec npm run babel-node -- ./server",
     "test": "npm run build && mocha --recursive",
     "lint": "eslint server.js",
     "babel-node": "babel-node --presets=env --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log"
