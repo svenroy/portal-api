@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import morgan from 'morgan';
 import express from 'express';
-import app from './api';
+import { controllers } from './api';
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
@@ -15,7 +15,7 @@ const server = express();
 server.use(morgan('tiny'));
 
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.configureControllers(server);
+controllers.configure(server);
 
 server.listen(port, () => {
   debug(`listening at ${chalk.green(port)}`);

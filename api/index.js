@@ -1,5 +1,10 @@
-import { controller as questionsController } from "./features/questions";
+import { controller as questionsController } from './features/questions';
 
-exports.configureControllers = (server) => {
-    questionsController(server);
+class Controllers {
+  static configure(server) {
+    server.use(questionsController.route, questionsController.router);
+  }
 }
+
+export { Controllers as controllers };
+

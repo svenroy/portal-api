@@ -1,4 +1,4 @@
-import controller from './controller';
+import * as controller from './questions.controller';
 
 export { controller };
 
