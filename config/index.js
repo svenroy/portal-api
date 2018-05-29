@@ -1,13 +1,11 @@
-let config;
+let config = {
+    "port": process.env.PORT || 3000,
+    "data": {
+        "questions": "api"
+    }
+};
 
-if(process.env.NODE_ENV === 'test'){
-    config = require('./config.test');
-}
-else if(process.env.NODE_ENV === 'production'){
-    config = require('./config.prod');
-}
-else {
-    config = require('./config.dev');
-}
+const env = process.env.NODE_ENV || 'development';
+const envConfig = require('./' + env);
 
-module.exports = config;
+module.exports = Object.assign(config, envConfig || {});

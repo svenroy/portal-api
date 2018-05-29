@@ -1,27 +1,20 @@
-process.env.NODE_ENV = 'development';
-
 import chalk from 'chalk';
-import morgan from 'morgan';
-import express from 'express';
-import { controllers } from './api';
 import config from './config';
 
+import { controllers } from './api';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 
+const app = require('express')();
 const debug = require('debug')('app');
 
-console.log(config);
+require('./middleware/appMiddleware')(app);
 
-const server = express();
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+controllers.configure(app);
 
-server.use(morgan('tiny'));
-
-server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-controllers.configure(server);
-
-server.listen(config.port, () => {
+app.listen(config.port, () => {
   debug(`listening at ${chalk.green(config.port)}`);
 });
 
-module.exports = server;
+module.exports = app;

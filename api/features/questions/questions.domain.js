@@ -1,4 +1,4 @@
-import { questionsRepository } from '../../data';
+import { questionsRepository } from './questionsRepository';
 
 export const getQuestionsAsync = (cb) => {
   if (cb) {
